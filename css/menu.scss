@@ -1,0 +1,139 @@
+	// menu //
+
+.menu-container {
+	position:fixed;
+	bottom:5vh;
+	right:-100%;
+	height: 100px;
+	width:100%;
+	z-index: 20;
+
+	svg#menu {
+		position: absolute;
+	  top: 0px;
+	  right: 0;
+	  //border: 1px dotted grey;
+	  height: 100%;
+	  width:100%;
+		z-index: 1
+
+	}
+
+	#menu-img {
+	  position:absolute;
+		background-image: url(../assets/images/menu-bg2.jpg);
+		background-size: cover;
+	  display:block;
+	  top: 0;left:0;
+	  // min-width:100%;
+		// min-height: 100vh;
+		// max-height: 2vw;
+		width:100vw;
+		height:100vh;
+	  opacity:0;
+		transform: translateY(-100%);
+	  transition: all .5s;
+	  z-index: 2;
+	}
+
+	#menu-container-close {
+		position:absolute;
+		right:10px;
+		top:10px;
+		z-index: 4;
+		//opacity: 0.5;
+		transform: translateY(-100px);
+		transition: transform .5s ease-out 1s;
+		&:hover svg {
+				animation: bulge 1s;
+		}
+	}
+
+  @keyframes bulge {
+  	0, 100% { transform:scale(1); opacity:0.5}
+		30% {transform:scale(1.2); opacity:1}
+  }
+	#menu-list {
+		position: absolute;
+		bottom: 5%;
+		left:5%;
+		list-style: none;
+		z-index: 3;
+		opacity: 0;
+		transform: translateY(-1000px);
+		transition: opacity 2.5s linear 1.0s, transform 0.5s;
+	  a {
+			color: white;
+			line-height: 1.25;
+			text-decoration: none;
+			transition:opacity .4s;
+			&:hover {
+				opacity: 0.5;
+			}
+		}
+		font-size: 5vw;
+		.small {
+			font-size: 2.5vw;
+			color:white;
+			vertical-align: sub;
+		}
+	}
+
+	#menu-icon {
+	  position:fixed;
+		display: block;
+	  right:0;
+	  top: calc(50% - 100px);
+	  width: 70px;
+		height: auto;
+		//border: 1px solid aliceblue;
+		cursor: pointer;
+		z-index: 3;
+		transition: transform 0.5s;
+		filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+
+	}
+
+}
+
+body.animating {
+	.menu-container {
+		top:0;
+		right:0;
+		height: 100%;
+		width:100%;
+		#menu-icon {
+			transform: translateX(100px);
+		}
+	}
+
+}
+
+body.activated .menu-container {
+	top:0;
+	right:0;
+	height: 100%;
+	width:100%;
+	//z-index: 2;
+	#menu-img {
+		opacity:1;
+		transform: translateY(0%);
+		transition: transform 1s, opacity .5s .5s;
+	}
+	#menu-container-close {
+		transform: translateY(0);
+	}
+	#menu-list {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	#menu-icon {
+		transform: translateX(100px);
+	}
+}
+
+@keyframes sliding {
+    0% {transform: translateX(0);}
+    50% {transform: translateX(-15%);}
+    100% {transform: translateX(0);}
+}

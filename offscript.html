@@ -1,0 +1,147 @@
+---
+# offscript
+---
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<head>
+	<title>guest+guest</title>
+	<link href="assets/all.css" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+</head>
+
+<body class="">
+	<!-- <body class="active-portfolio"> -->
+
+	<header class="activated">
+		<img src="//www.guestandguest.com/images/gg_guestandguest-txt_logo.png" />
+		<svg viewBox="0 0 100 246" width="100%" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.4" preserveAspectRatio="none">
+			<path d="M0 0l16.3 85.2 15 43L48.8 246l18.4-24L100 0H0z" fill="rgba(0,0,0,0.02)"/>
+			<path d="M0 0l16.2 50.2 14.6 38 18 82.2 18.6-17.6L100 0H0z" fill="#fff" stroke="#eee"/>
+		</svg>
+	</header>
+
+	<div class="container">
+		<h2>Original Illustrations & Sketches</h2>
+		<figure data-target="http://w3schools.com" data-type="iframe">
+			<img src="//placehold.it/640x640"/>
+			<figcaption>
+				1/
+			</figcaption>
+		</figure>
+
+		<figure data-target="assets/images/offscript/snail.jpg" data-type="image">
+			<div class="inner" style="background-image: url(../assets/images/offscript/snail.jpg)">
+			</div>
+			<figcaption>
+				2/
+			</figcaption>
+		</figure>
+
+		<figure data-target="assets/images/offscript/goldenage.jpg" data-type="image">
+			<div class="inner" style="background-image: url(../assets/images/offscript/goldenage.jpg)">
+			</div>
+			<figcaption>
+				3/
+			</figcaption>
+		</figure>
+
+		<figure data-target="assets/images/offscript/sierras.jpg" data-type="image">
+			<div class="inner" style="background-image: url(../assets/images/offscript/sierras.jpg)">
+			</div>
+			<figcaption>
+				4/
+			</figcaption>
+		</figure>
+
+		<figure data-target="//placehold.it/640x640" data-type="image">
+			<img src="//placehold.it/640x640"/>
+			<figcaption>
+				5/
+			</figcaption>
+		</figure>
+
+		<h2>Digital Art</h2>
+
+		<figure data-target="assets/images/offscript/pig.jpg" data-type="image">
+			<div class="inner" style="background-image: url(../assets/images/offscript/pig.jpg)">
+			</div>
+			<figcaption>
+				6/
+			</figcaption>
+		</figure>
+
+		<figure data-target="assets/images/offscript/sierras.jpg" data-type="image">
+			<div class="inner" style="background-image: url(../assets/images/offscript/sierras.jpg)">
+			</div>
+			<figcaption>
+				7/
+			</figcaption>
+		</figure>
+	</div>
+
+	<a id="icon-close" class="abs" href="#">
+		{% include icon-close.html %}
+	</a>
+
+
+	<div id="content-slider">
+
+
+	</div>
+
+
+	<a href="#" id="homepage-next" class="fixed bottom text-center">
+		{% include icon-next.html %}
+	</a>
+	<a href="#" id="homepage-prev" class="fixed top text-center">
+		{% include icon-prev.html %}
+	</a>
+
+
+	<!-- <script src="dist/scripts/scripts.js"></script> -->
+
+<script>
+var figures = document.querySelectorAll('.container figure');
+var contentSlider = document.getElementById('content-slider');
+var iconClose = document.getElementById('icon-close');
+
+for (var i=0; i<figures.length; i++) {
+	figures[i].addEventListener('click', offscriptClickHandler)
+}
+iconClose.addEventListener('click', offscriptCloseHandler)
+
+function offscriptClickHandler(e) {
+
+	iconClose.classList.add('active');
+
+	var src = this.getAttribute('data-target');
+	contentSlider.innerHTML = ''
+
+	if (this.getAttribute('data-type') == 'image') {
+		var el = document.createElement('img')
+	} else if (this.getAttribute('data-type') == 'iframe') {
+		var el = document.createElement('iframe')
+		el.setAttribute('frameborder', '0');
+	}
+
+	el.setAttribute('src', src);
+	contentSlider.appendChild(el);
+	contentSlider.classList = 'active';
+}
+
+function offscriptCloseHandler(){
+	contentSlider.classList = iconClose.classList = '';
+}
+
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
