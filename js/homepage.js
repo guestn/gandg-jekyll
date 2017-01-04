@@ -4,9 +4,11 @@
   window.setTimeout(function(){
     document.body.classList.add('loaded')
   },1000);
+/*
   document.getElementById('load').addEventListener('click',function(){
   document.body.classList.toggle('loaded')
   })
+*/
 
 
 var str = document.querySelector('.text').innerHTML;
@@ -50,17 +52,16 @@ for (var i=0; i<strokes.length; i++) {
   var sInit = Snap('#menu-icon');
   sInit.attr({viewBox:'0 0 70 180'});
   var menuPoly = sInit.polygon([70,0, 70,180, 26,135,  7,75, 30,30]).attr({ fill: '#333'});
+  
+  var menuPoints = [20, 70, 60, 70,25, 90, 50, 90,30, 110, 55, 110];
 
-  var burger1 = sInit.polyline([20, 70, 60, 70]).attr({ stroke: 'white',strokeWidth: 2})
-  var burger2 = sInit.polyline([25, 90, 50, 90]).attr({ stroke: 'white',strokeWidth: 2})
-  var burger3 = sInit.polyline([30, 110, 55, 110]).attr({ stroke: 'white',strokeWidth: 2})
-
-  //var menuInit = sInit.polygon(s0);
-  //<polyline points="2,2 50,50 98,2" fill="none" stroke="white" stroke-width="2"	/>
-  // <circle cx="2" cy="2" r="2" fill="white"/>
-  // <circle cx="50" cy="50" r="2" fill="white"/>
-  // <circle cx="98" cy="2" r="2" fill="white"/>
-  //menuPoly.attr({ fill: '#333'});
+  var burger1 = sInit.polyline([20, 70, 60, 70]).attr({ stroke: 'white',strokeWidth: 2});
+  var burger2 = sInit.polyline([25, 90, 50, 90]).attr({ stroke: 'white',strokeWidth: 2});
+  var burger3 = sInit.polyline([30, 110, 55, 110]).attr({ stroke: 'white',strokeWidth: 2});
+  var circle = [];
+	for (var i=0; i < menuPoints.length; i+=2) {
+		var circle = sInit.circle(menuPoints[i], menuPoints[i+1], 2).attr({fill:'white'});
+	}
 
 
   var s = Snap('#menu');
@@ -105,8 +106,6 @@ for (var i=0; i<strokes.length; i++) {
      if( n < 0 ) { return }
      el.animate( frameArr[n].animation, frameArr[n].dur, lastFrame.bind( null, el, frameArr, n - 1 ));
   }
-
-
 
 
   function menuInProgress(test) {
@@ -177,8 +176,7 @@ for (var i=0; i<strokes.length; i++) {
 
   var homepageScroller = document.getElementById('homepage-scroller');
   var homepage = 0;
-  var homepageCount = 4;
-  //document.getElementById('index-canvas')
+  var homepageCount = 3;
   var homepageNext = document.getElementById('homepage-next')
   var homepagePrev = document.getElementById('homepage-prev')
 
@@ -187,7 +185,7 @@ for (var i=0; i<strokes.length; i++) {
 
     if (homepage == 0) {
       console.log('float')
-      floatAway()
+      floatAway() 
     }
     //scrollTo(wHeight,'',1000);
     if (homepage < homepageCount -1) {
@@ -205,7 +203,7 @@ for (var i=0; i<strokes.length; i++) {
 
 
   function gotoHomepage(n) {
-      if (homepage == 3) {
+      if (homepage == 2) {
         blimpContainer.classList.add('hidden');
       } else {
         blimpContainer.classList.remove('hidden');
@@ -230,3 +228,60 @@ for (var i=0; i<strokes.length; i++) {
   }
 
   setHomepageControls(homepage)
+  
+  
+  // form //
+	var statusMessage = document.getElementById('statusMessage');
+
+  
+  document.getElementById('sendForm').addEventListener('click', function(e) {
+		e.preventDefault();
+		console.log('click')
+	
+	
+		var inputName = document.getElementById("input-name").value;
+		var inputEmail = document.getElementById("input-email").value;
+		var inputMsg = document.getElementById("input-message").value;
+
+		if (inputName=='' ||inputEmail==''||inputMsg=='') {
+			statusMessage.classList.remove('hidden')
+			statusMessage.innerHTML = 'Please complete all the fields';
+			return false;
+
+		}
+		
+		$.ajax({
+	    url: 'https://formspree.io/' + 'nicholas.guest' + '@' + 'gmail' + '.' + 'com', 
+	    method: 'POST',
+	    data: {
+		    'Name': inputName,
+		    'Email' : inputEmail,
+		    'Message' : inputMsg
+			},
+	    dataType: 'json',
+	    beforeSend: function(resp) {
+		    console.log('sending')
+		    statusMessage.classList.remove('hidden')
+				statusMessage.innerHTML = 'Message Sending ...';
+	  	},
+			success: function(resp) {
+				console.log('success: ', resp)
+				statusMessage.classList.remove('hidden')
+				statusMessage.innerHTML = 'Thanks! We will respond shortly';
+				inputName = inputEmail = inputMsg = '';
+	  	},
+			error: function(resp) {
+								console.log('error: ', resp)
+		    statusMessage.classList.remove('hidden');
+				statusMessage.innerHTML = 'Unfortunately something went wrong- please try again';
+	
+	  	}	
+	  });
+	  
+	  return false;
+
+	})
+
+  statusMessage.addEventListener('click', function(e) {
+	  statusMessage.classList.add('hidden');
+	})

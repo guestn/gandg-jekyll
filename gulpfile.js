@@ -38,7 +38,7 @@ const cssFiles = './css/**/*.scss'
     	'js/homepage.js',
     	'js/blimp.js',
     	'js/gallery2.js',
-    	'js/sendmail.js'
+    	'js/jquery-ajax.min.js'
     ];
   const jsDest = 'dist/scripts';
 
@@ -130,6 +130,8 @@ gulp.task('serve', () => {
     }
   });
   gulp.watch(cssFiles, ['css'])
+  gulp.watch(jsFiles, ['scripts'])
+
 });
 
 

@@ -12,53 +12,41 @@
 </head>
 
 <body class="">
-	<!-- <body class="active-portfolio"> -->
+	<div class="loader">
+		<svg viewBox="0 0 1000 800" width="100%" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.4" preserveAspectRatio="none">
+		
+		</svg>
+	</div>
 
 
 	<header>
 		<img src="//www.guestandguest.com/images/gg_guestandguest-txt_logo.png" />
 		<svg viewBox="0 0 100 346" width="100%" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.4" preserveAspectRatio="none">
-			<!-- <path d="M0 0l16.3 85.2 15 43L48.8 246l18.4-24L100 0H0z" fill="rgba(0,0,0,0.02)"/> -->
 			<path d="M0 0l16.2 50.2 14.6 38 18 82.2 18.6-17.6L100 0H0z" fill="#fff" stroke="#eee"/>
-			<!-- <defs>
-		    <filter id="drop-shadow" x="0" y="0" width="100%" height="130%">
-		      <feOffset result="offOut" in="SourceAlpha" dx="00" dy="0" />
-		      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
-		      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-		    </filter>
-		  </defs> -->
 		</svg>
 	</header>
 
 
-	<div id="homepage-scroller" class="homepage-3">
+	<div id="homepage-scroller" class="homepage-0">
+
 		<div class="page-container" id="homepage-0">
 			{% include bg-1.html %}
-
 			<h1 class="text">Untether Your Creativity</h1>
 			<div id="title"></div>
-
-			<button id="load">Load</button>
-
-
 		</div>
+		
 		<div class="page-container" id="homepage-1">
-			<h2>page1</h2>
 			<img id="finger" class="abs middle" src="assets/images/pointing-finger-right.png">
 			<div class="textblock abs middle">People can tell a lot about the quality of a business just by peering into its shop window. Today, your website is the equivalent. Having an intuitive website which doesn't look and function like an after-thought is invaluable to your customers and,
 				ultimately, your business. At guest+guest, we work with you to build a bespoke website that meets all of your needs, and gives your customers peace of mind on their first visit. Your website will be designed uniquely for you, ensuring that your 'shop
 				window' stands out from the crowd!</div>
 
 		</div>
-		<div class="page-container" id="homepage-2">
-			<h2>Page2</h2>
-			<div class="textblock abs middle">We can do loads of stuff</div>
 
-		</div>
-		<div class="page-container" id="homepage-3">
-			<h2>Page3</h2>
+		<div class="page-container" id="homepage-2">
+			<h2 class="abs top">Come Fly With Us!</h2>
 			<div class="abs text-center middle" id="boarding-pass">
-				<form action="php/sendmail.php" class="clear" >
+				<form class="clear" id="contactForm">
 					<div class="form-left">
 						<label for="input-name">PASSENGER NAME<br/>
 					  	<input type="text" id="input-name" placeholder="Enter your name..."/>
@@ -72,9 +60,10 @@
 							<textarea id="input-message" placeholder="and your message. Thanks!"></textarea>
 						</label>
 					</div>
-					<button type="submit">Send!</button>
+					<button id="sendForm">Send!</button>
 	   		</form>
 			</div>
+			<div id="statusMessage" class="top abs text-center hidden" style="background:pink; padding: 10px"></div>
 
 		</div>
 
@@ -87,10 +76,6 @@
 		{% include icon-prev.html %}
 	</a>
 
-	<form class="fixed top" action="php/sendmail.php" method="POST">
-
-		<button type="submit" id="send" class="fixed top">SEND IT</button>
-	</form>
 
 	<section class="page" id="portfolio">
 		<img id="heightmap" style="position:absolute;opacity:0" src="assets/images/landmap.png"/>
@@ -126,7 +111,6 @@
 				<a href="//codepen.io/guestn/pens/public/" target="_blank"><img data-target="//codepen.io/guestn/pens/public/" src="assets/images/codepen-logo.svg"/></a>
 				<a class="small" data-target="/offscript.html"/>[Offscript]</a>
 			</li>
-
 		</ul>
 
 
@@ -173,10 +157,6 @@
 
 	<script src="dist/scripts/scripts.js"></script>
 
-
-
-	<script>
-	</script>
 
 
 

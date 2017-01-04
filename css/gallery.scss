@@ -125,13 +125,15 @@
 			a {
 				display: block;
 				text-align: center;
+				max-width: 50%;
+
 			}
 		}
 		img {
 			//float: left;
 			transform: rotate(30deg) skew(-30deg);
-			max-width: 50%;
 			display: block;
+			max-width: 100%;
 			transition: transform 1s ease-out 0.5s;
 			&:hover {
 				transform:none;
@@ -142,7 +144,9 @@
 			margin:0 20px;
 			position: relative;
 			transition: transform 1s 0.5s;
-
+			a {
+				max-width: 100%;
+			}
 		}
 		.site-href {
 			display: block;

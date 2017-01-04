@@ -46,7 +46,7 @@ body {
 	color: black;
 	background-size: 20%, 100%;
 	font-family: $base-font-family;
-	&:after {
+	&:before {
 		content:' ';
 		position:fixed;
 		height:20px;
@@ -56,6 +56,32 @@ body {
 		background: white;
 		z-index: 5;
 	}
+	&:after {
+		position: fixed;
+		content:' ';
+		width: 100%;
+		height: 30vh;
+		background: linear-gradient(120deg, rgba(#B25141,0.1), rgba(#B25141,0.03));
+		top: 50vh; left: -16px;
+		transform-origin: 0 0;
+		transform: skewY(-20deg);
+		z-index: 2;
+		pointer-events: none;
+	}
+
+}
+
+.loader {
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	top: 0;
+	left: 0;
+	background: white;
+	z-index: 100;
+	transform-origin: 0% 0%;
+	transform: rotate(0deg);
+	transition: transform 0.5s;
 }
 
 .clear:after {
@@ -63,8 +89,6 @@ body {
     display:block;
     clear:both;
 }
-
-
 
 .text-center {
 	text-align: center;
@@ -84,10 +108,10 @@ body {
 	position: fixed;
 }
 .bottom {
-	bottom:10%;
+	bottom: 5%;
 }
 .top {
-	top:calc(10% + 50px);
+	top:calc(5% + 50px);
 }
 .inline-block {
 	display: inline-block;
@@ -120,7 +144,7 @@ header {
 	svg {
 		height: 100px;
 		width:100%;
-		filter: drop-shadow(0 0px 10px rgba(0, 0, 0, 0.05));
+		filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.05));
 	}
 	img {
 		position:absolute;
@@ -208,8 +232,13 @@ h1 {
 
 // homepage scroller & nav
 
-$homepageCount: 4;
-$homepageCountminus: 3;
+$homepageCount: 3;
+$homepageCountminus: 2;
+
+#homepage-next,
+#homepage-prev {
+	filter: drop-shadow(3px 10px 5px rgba(0,0,0,0.2));
+}
 
 #homepage-next {
 	z-index: 5;
@@ -217,7 +246,7 @@ $homepageCountminus: 3;
 		//border:1px solid red;
 	}
 	&.hidden {
-		//bottom:-50%
+		bottom:-50%
 	}
 	&:active {
 		transform: scale(1.1);
@@ -245,6 +274,19 @@ $homepageCountminus: 3;
 	left:0;
 	background: transparent;
 	transition: transform ease-out 1s;
+	
+/*
+	&:after {
+		position: fixed;
+		content:' ';
+		width: 100%;
+		height: 30vh;
+		background: rgba(#B25141,0.1);
+		top: 50vh; left: -16px;
+		transform-origin: 0 0;
+		transform: skewY(-20deg)
+	}
+*/
 
 }
 
@@ -332,6 +374,7 @@ $homepageCountminus: 3;
 		  font-size: 60px;
 		  transform-origin: 0 70%;
 		  transform: rotateX(-90deg);
+		  text-shadow:  10px 20px 10px rgba(50,50,50,0.15);
 		  &:nth-child(14),
 		  &:nth-child(9) {
 		    width:20px;
@@ -347,6 +390,20 @@ $homepageCountminus: 3;
 		  //border: 1px solid red;
 		  z-index: 5;
 		}
+		
+		&:after {
+			position: absolute;
+			content:' ';
+			width: 100%;
+			height: 20vh;
+			background: linear-gradient(120deg, rgba(#B25141,0.2), rgba(#B25141,0.15));
+			bottom: -40vh; right: 0px;
+			transform-origin: 0 0;
+			transform: skewY(-20deg);
+			z-index: 2;
+			pointer-events: none;
+		}
+
 	}
 
 	&#homepage-1 {
@@ -355,18 +412,53 @@ $homepageCountminus: 3;
 			line-height: 1.6;
 			max-width: 500px;
 			left:0; right:0;
+			font-size: 1.2em;
 			margin: 0 auto;
 			transform: translate(-125px,-50%);
 			opacity: 0;
 			//transition: opacity 1.5s linear 1s;
-			//opacity:1;
-			animation: float 2s forwards 2s;
+			opacity:1;
+			//animation: float 2s forwards 2s;
+			background: -webkit-linear-gradient(transparent, transparent),  -webkit-linear-gradient(-45deg, rgba(76,76,76,1) 0%, rgba(89,89,89,0.5) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,0.5) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,0.2) 100%);
+    background: -o-linear-gradient(transparent, transparent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 		}
 	}
 
 
-	&#homepage-3 {
+	&#homepage-2 {
 
+		h2 {
+			width: 95%;
+	    margin: 0 auto;
+	    max-width: 1400px;
+	    font-size: 2.5em;
+	    left: 0;
+	    right: 0;
+	    transform: translate(-125px,-50%);
+
+		}
+		#statusMessage {
+			width: 90%;
+			max-width: 500px;
+			border: 2px solid brown;
+			opacity:1;
+			transition: opacity 1s;
+			border-radius: 2px;
+			box-shadow: 0 30px 10px -10px rgba(50,50,50,0.3);
+			&.hidden {
+				opacity:0;
+			}
+			&:after {
+				content: "\00d7";
+				position:absolute;
+				top: 0;
+				right: 0.3em;
+				font-size: 2em;
+				line-height: 1.1;
+			}
+		}
 		#boarding-pass {
 			position: absolute;
 			width: 95%;
@@ -377,8 +469,6 @@ $homepageCountminus: 3;
 			background-repeat: no-repeat;
 			transform-origin: 120% 00%;
 			transform: rotate(10deg) translate(0,-50%);
-
-
 		}
 		form {
 			display: block;
@@ -408,13 +498,13 @@ $homepageCountminus: 3;
 
 			input,
 			textarea,
-			button[type="submit"] {
+			button {
 				display: block;
 				font-family: $base-font-family;
 				font-size: 1.5em;
 				padding:0.5em;
 				border:none;
-				background:transparent;
+				//background:transparent;
 				//background:green;
 				//margin-top: 1em;
 				&:focus,
@@ -454,13 +544,13 @@ $homepageCountminus: 3;
 				width:80%;
 			}
 
-			button[type="submit"] {
+			button {
 				position: absolute;
 				left: 33%;
 				width:9%;
 				padding: 7% 0 1% 0;
 				bottom:0%;
-				opacity:0;
+				opacity:1;
 				text-transform: uppercase;
 				&:hover {
 					opacity:1;
@@ -475,22 +565,25 @@ $homepageCountminus: 3;
 #homepage-scroller {
 
 	&.homepage-1 {
-		#homepage-1 {
-			.textblock {
-				opacity:1;
-			}
-		}
+		#finger {
+	    animation: push 2s forwards 2s;
+	  }
+	  .textblock {
+	    animation: float 2s forwards 2s;
+	  }
 	}
 
-
-
-	&.homepage-3 {
+	&.homepage-2 {
+		#homepage-2 h2 {
+			animation: float 2s forwards 2s;
+		}
 		#boarding-pass {
 			animation: present 1.0s ease-in-out 1.5s forwards;
 		}
 	}
-
 }
+
+
 
 
 @keyframes present {
@@ -511,6 +604,10 @@ $homepageCountminus: 3;
 // 	}
 // }
 body.loaded {
+	
+	.loader {
+		transform: rotate(90deg);
+	}
 	.st0 {
 		animation: dash 5s linear forwards;
 	}
@@ -539,26 +636,13 @@ body.loaded {
 	z-index: 3;
 	&.hidden {
 		display: none;
+		pointer-events: none;
 	}
 }
 
 
 
 
-#homepage-scroller.homepage-1 {
-	.scissors {
-		animation: positionScissors 4s forwards;
-		#scissors-1 {
-			animation: chop 4s forwards;
-		}
-	}
-
-    #finger {
-      animation: push 2s forwards 2s;
-    }
-
-
-}
 
 @keyframes positionScissors {
 		0%, 100% { 	transform: translateX(30%); }
@@ -588,8 +672,6 @@ body.loaded {
 
 
 
-
-// footer //
 
 footer {
 	margin:0;

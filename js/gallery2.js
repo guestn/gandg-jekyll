@@ -36,16 +36,72 @@ function setNavControls(n) {
 }
 
 // scroll handler
+/*
 var onMouseWheel = debounce(function(e) {
-  e = e ? e : window.e;
+	  e = e ? e : window.e;
+
     //console.log('delta: ' + e.wheelDelta);
     var scroll = ( e.detail ? e.detail : e.wheelDelta );
-    if (scroll > 50  & currentSlide > 1) {
+    
+    if (document.body.classList.contains('active-portfolio')) {
+
+	    if (scroll > 50  & currentSlide > 0) {
+	      prevSlide();
+	    } else if (scroll < -50 & currentSlide < slideCount) {
+	      nextSlide();
+	    }
+    } else {
+	    
+	    if (scroll > 50  & homepage > 0) {
+	      gotoHomepage(homepage-1);
+	      homepage--
+	    } else if (scroll < -50 & homepage < homepageCount) {
+	      gotoHomepage(homepage+1);
+	      if (homepage==1) { floatAway()}
+	      homepage++
+	    }
+	    
+    }
+
+}, 20);
+*/
+
+var onMouseWheel = debounce(function(e) {
+
+	// cross-browser wheel delta
+	var e = window.event || e; // old IE support
+	var scroll = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+//We can now size the image accordingly. The code below sets a width between 50px and 800px, but you could determine the image’s natural dimensions and use that.
+
+	console.log('dir ',scroll)
+	
+	
+  if (document.body.classList.contains('active-portfolio')) {
+
+    if (scroll > 0  & currentSlide > 0) {
       prevSlide();
-    } else if (scroll < -50 & currentSlide < slideCount) {
+    } else if (scroll < 0 & currentSlide < slideCount) {
       nextSlide();
     }
-}, 20);
+  } else {
+    
+    if (scroll > 0  & homepage > 0) {
+      gotoHomepage(homepage-1);
+      homepage--
+    } else if (scroll < 0 & homepage < homepageCount) {
+      gotoHomepage(homepage+1);
+      if (homepage==1) { floatAway()}
+      homepage++
+    }
+    
+  }
+	
+	return false;
+}, 60);
+
+
+
+
 
 // nav button press handler
 function onNavPress(e) {
@@ -108,7 +164,6 @@ function toggleGallery(test, selectedSlide) {
 setNavControls(currentSlide || selectedSlide)
 
 
-
 document.querySelector('.gallery-container-toggle').addEventListener('click',function(e){
   toggleGallery(false);
 })
@@ -134,7 +189,7 @@ var points, uniforms;
 var colors, positions, sizes, geometry1;
 var cloudTexture, logoTexture, landAlpha, waterNormals;
 var biplaneObj, blimp, ship, rocks;
-//var sphereEnd = []
+
 var biplanes = []
 var texts = []
 var banners = []
@@ -144,10 +199,10 @@ var ships = []
 var galleryNames = [
   'Grahamortho',
   'Black Cordon Vineyards',
-  'another site',
-  'another site',
-  'another site',
-  'another site',
+  'Cynthia Brattesani DDS',
+  'Eno River Orthodontics',
+  'Mappo',
+  'JSONomatic',
 ]
 
 var targetList =[];
@@ -361,8 +416,6 @@ function init() {
       linewidth: 1
   });
 
-
-
   var landMaterial = new THREE.MeshLambertMaterial( {
     color: 0xaaaaaa,
     transparent: true,
@@ -554,8 +607,6 @@ function init() {
 
   /////////////// WATER
 
-
-
 	// Create the water effect
 	water = new THREE.Water(renderer, camera, scene, {
 		textureWidth: 256,
@@ -586,9 +637,9 @@ function init() {
 //----------------------------------------//
 
 
-//----------------------------------------//
-//  BLIMP                                 //
-//----------------------------------------//
+	//----------------------------------------//
+	//  BLIMP                                 //
+	//----------------------------------------//
 
   var scale = 0.4;
   var offsetY = 10;//-40;
@@ -670,7 +721,7 @@ function init() {
       var textGeo = new THREE.TextGeometry( text, {
 				font: font,
         weight: 'normal',
-				size: 6,
+				size: 8,
 				height: 0.1,
 			});
       textGeo.name = text
@@ -701,8 +752,9 @@ function init() {
     ship.rotation.set(0,5*Math.PI/4,0)
     ships.push(ship);
 
-
-    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    if(document.body.classList.contains('active-portfolio')) {
+    	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    }
     // TEMPORARY //
 
     window.addEventListener( 'resize', onWindowResize, false );
@@ -715,9 +767,6 @@ function init() {
 
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
-
-
-
 
     animate();
 
@@ -795,7 +844,8 @@ function render() {
   //scamera.position.y += ( - mouseY - (camera.position.y-100) )*1.8;
   //camera.position.z += ( - mouseY - camera.position.y -100) * 0.01;
   camera.position.x = - mouseX +100;
-  camera.position.y = - mouseY +200;
+ // camera.position.y = - mouseY +200;
+  camera.position.y = - mouseY*0.5 + windowHalfY/4;
   camera.position.z = -200;
   //camera.position.set(0,0,0);
 
@@ -816,10 +866,12 @@ function render() {
   //biplanes[4].position.x -= 0.1 * Math.cos(elapsed)
   // banners[4].position.x -= 0.1 * Math.cos(elapsed)
 
+/*
 
   lines[4].geometry.vertices[0].x -= 0.2 * Math.cos(elapsed)
   lines[4].geometry.vertices[1].x += 0.2 * Math.cos(elapsed)
   lines[4].geometry.verticesNeedUpdate = true;
+*/
   ships[0].position.x = ships[0].position.z = 1000 - 50*elapsed;
 
   camera.lookAt( scene.position );
@@ -831,37 +883,41 @@ function render() {
   intersects = raycaster.intersectObjects( targetList );
   //raycaster.recursive = true;
   //console.log(intersects)
-  if ( intersects.length > 0 ) {
-    INTERSECTED = intersects[ 0 ].object.index;
-    //console.log(INTERSECTED)
-    if (INTERSECTED != null || INTERSECTED !=0) {
-      console.log(INTERSECTED);
-      document.body.style.cursor = 'pointer'
+  if(document.body.classList.contains('active-portfolio')) {
 
-      //intersects[ 0 ].object.scale.set(1.2,1.2,1);
-      outlineList[INTERSECTED].scale.set(1.1,1.1,1)
-      texts[INTERSECTED].visible = true;
-      //container.addEventListener( 'click', onPortfolioMouseDown, false );
-      container.addEventListener('click', function onPortfolioMouseDown() {
-          console.log('INTERSECTED: '+INTERSECTED)
-          if (INTERSECTED != null) {
-            container.removeEventListener('click',onPortfolioMouseDown)
-            toggleGallery(true, INTERSECTED)
-          }
-      });
-
-    }
-  } else {
-    document.body.style.cursor = 'all-scroll'
-
-    outlineList.forEach(function(mesh){
-      mesh.scale.set(1.025,1.025,1)
-    })
-    texts.forEach(function(mesh){
-      mesh.visible = false
-    })
-    INTERSECTED = null;
-  }
+	  if ( intersects.length > 0 ) {
+	    INTERSECTED = intersects[ 0 ].object.index;
+	    //console.log(INTERSECTED)
+	    if (INTERSECTED != null || INTERSECTED !=0) {
+	      console.log(INTERSECTED);
+	      document.body.style.cursor = 'pointer'
+	
+	      //intersects[ 0 ].object.scale.set(1.2,1.2,1);
+	      outlineList[INTERSECTED].scale.set(1.1,1.1,1)
+	      texts[INTERSECTED].visible = true;
+	      //container.addEventListener( 'click', onPortfolioMouseDown, false );
+		      container.addEventListener('click', function onPortfolioMouseDown() {
+		          console.log('INTERSECTED: '+INTERSECTED)
+		          if (INTERSECTED != null) {
+		            container.removeEventListener('click',onPortfolioMouseDown)
+		            toggleGallery(true, INTERSECTED)
+		          }
+		      });
+		    
+	
+	    }
+	  } else {
+	    document.body.style.cursor = 'all-scroll'
+	
+	    outlineList.forEach(function(mesh){
+	      mesh.scale.set(1.025,1.025,1)
+	    })
+	    texts.forEach(function(mesh){
+	      mesh.visible = false
+	    })
+	    INTERSECTED = null;
+	  }
+	}
 
 
 
