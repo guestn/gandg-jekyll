@@ -77,11 +77,105 @@ body {
 	width: 100vw;
 	top: 0;
 	left: 0;
-	background: white;
+  background: radial-gradient(white,#bbb);
 	z-index: 100;
 	transform-origin: 0% 0%;
 	transform: rotate(0deg);
 	transition: transform 0.5s;
+	.propellor {
+	  position:relative;
+	  top: calc(50vh - 125px);
+	  left: calc(50vw - 125px);
+	  width: 250px;
+	  height:250px;
+	  transform-style: preserve-3d;
+	  border-radius: 50%;
+	  animation: rotate 6s linear infinite;
+	  .inner {
+	    position:absolute;
+	    top:0;
+	    left:0;
+	    width: 250px;
+	    height:250px;
+	    transform-style: preserve-3d;
+	    animation: spin 1.25s linear infinite;
+	  }
+	  .blade {
+	    position:absolute;
+	    background: linear-gradient(0deg,#777 0%,#777 79.9%,
+	#e9a441 80%, yellow 100% );
+	    width: 40px;
+	    height: 125px;
+	    left: 105px;
+	    top: -14px;
+	    transform-origin: 50% 110%;
+	    transform: rotateY(45deg);
+	    border-radius: 20px 20px 20px 20px / 50px 50px 100px 100px;
+	    border-left: 4px solid #bbb;
+	    border-right: 4px solid #444;
+	    &:nth-of-type(1) {
+	      
+	    }
+	    &:nth-of-type(2) {
+	      transform: rotate(120deg);
+	    }
+	    &:nth-of-type(3) {
+	      transform: rotate(240deg);
+	    }
+	
+	  }
+	  .center {
+	    position:absolute;
+	    width: 30px;
+	    height:30px;
+	    background: #ddd;
+	    left: 110px;
+	    top: 110px;
+	    border-radius: 50%;
+	    &:after, 
+	    &:before {
+	      position:absolute;
+	      content:' ';
+	      width: 30px;
+	      height:30px;
+	      background: #999;
+	      border-radius: 50%;
+	      top:0;
+	      left:0;
+	
+	    }
+	    &:before {
+	      transform: translateZ(10px) scale(0.5);
+	      background: radial-gradient(white, #ddd);
+	      z-index:2;
+	    }
+	    &:after {
+	      transform: translateZ(5px) scale(0.85);
+	      background: radial-gradient(white, #aaa);
+	   
+	    }
+	
+	  }
+}
+
+@keyframes spin {
+  0% {
+     transform: rotateZ(0deg)
+  }
+  100% {
+     transform: rotateZ(360deg)
+  }
+}
+
+@keyframes rotate {
+  0% {
+      transform: rotateX(0deg) rotateY(0deg)
+    
+  }
+  100% {
+     transform: rotateX(360deg) rotateY(360deg)
+  }
+}
 }
 
 .clear:after {

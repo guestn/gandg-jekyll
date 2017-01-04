@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 if(isset($_POST['submit'])){echo "<pre>"; print_r($_POST); }
 echo 'hello';
 
-$SENDGRID_API_KEY = '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'
+$SENDGRID_API_KEY = ''
 // If you are using Composer
 //require 'vendor/autoload.php';
 /*

@@ -1,18 +1,12 @@
 //(function(){
 //(function(){
 
-  window.setTimeout(function(){
-    document.body.classList.add('loaded')
-  },1000);
-/*
-  document.getElementById('load').addEventListener('click',function(){
-  document.body.classList.toggle('loaded')
-  })
-*/
+window.setTimeout(function(){
+	document.body.classList.add('loaded')
+},1500);
 
 
 var str = document.querySelector('.text').innerHTML;
- // str=str.trim().replace(/ /g, );
 
 for (var i=0; i<str.length; i++) {
 
@@ -27,9 +21,8 @@ for (var i=0; i<str.length; i++) {
 
 var strokes = document.querySelectorAll('.page-container#homepage-0 .st0');
 for (var i=0; i<strokes.length; i++) {
-  var width = 1 + Math.random()
- strokes[i].style.strokeWidth = width;
- // strokes[i].setAttribute('strokeWidth',width)
+  var width = 1 + Math.random();
+	strokes[i].style.strokeWidth = width;
 }
 
 //}())
@@ -69,12 +62,6 @@ for (var i=0; i<strokes.length; i++) {
 
 
   var paper = Snap(200,200);
-  //var pattern = s.image('assets/images/menu-bg2.jpg',0,0,1000,750)
-  //   .pattern(0,0,1000,750);
-  //var path = paper.path("M0,0h200v200h-200z").attr("fill", pattern);
-
-  //var poly = s.polygon(s0).attr({ fill: pattern});
-
   var poly = s.polygon(s0).attr({ fill: '#333'});
 
   var type = mina.linear
@@ -98,8 +85,6 @@ for (var i=0; i<strokes.length; i++) {
      }
 
      el.animate( frameArr[n].animation, frameArr[n].dur, nextFrame.bind( null, el, frameArr, n + 1 ) );
-  	 //setTimeout(menuInProgress(false),1000);
-
   }
 
   function lastFrame ( el, frameArr, n ) {
